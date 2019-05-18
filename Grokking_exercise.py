@@ -5,7 +5,7 @@ Grokking the Coding Interview: Patterns for Coding Questions
 
 import unittest
 from SlidingWindowPattern import *
-
+from TwoPointersPattern import *
 
 class GrokkingExTest(unittest.TestCase):
     def test_max_sub_array_of_size_k(self):
@@ -55,3 +55,7 @@ class GrokkingExTest(unittest.TestCase):
 
         for i in range(len(ans)):
             self.assertEqual(mut(input_a[i], input_b[i]), ans[i])
+
+    def test_pair_with_targetsum(self):
+        self.assertEqual(pair_with_targetsum([1, 2, 3, 4, 6], 6), [1, 3])
+        self.assertEqual(pair_with_targetsum([2, 5, 9, 11], 11), [0, 2])
