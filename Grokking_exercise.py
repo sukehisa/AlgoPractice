@@ -59,3 +59,11 @@ class GrokkingExTest(unittest.TestCase):
     def test_pair_with_targetsum(self):
         self.assertEqual(pair_with_targetsum([1, 2, 3, 4, 6], 6), [1, 3])
         self.assertEqual(pair_with_targetsum([2, 5, 9, 11], 11), [0, 2])
+
+    def test_remove_duplicates(self):
+        self.assertEqual(remove_duplicates([2, 3, 3, 3, 6, 9, 9]), 4)
+        self.assertEqual(remove_duplicates([2, 2, 2, 11]), 2)
+
+    def test_remove_element(self):
+        self.assertEqual(remove_element([3, 2, 3, 6, 3, 10, 9, 3], 3), 4)
+        self.assertEqual(remove_element([2, 11, 2, 2, 1], 2), 2)
