@@ -56,3 +56,29 @@ def remove_element(arr, key):
             arr[next] = arr[i]
             next += 1
     return next
+
+
+def make_squares(arr):
+    """
+    Squaring a Sorted Array (easy)
+    Given a sorted array, create a new array containing squares of all the number of the input array in the sorted order.
+    Input: [-2, -1, 0, 2, 3]
+    Output: [0, 1, 4, 4, 9]
+
+    Educative.ioの回答よりこっちのほうが良さそう
+    Computation: O(N), as we are iterating the input array only once
+    Space: O(N), size of array as an output
+
+    :param arr:
+    :return:
+    """
+    ans = []
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        if abs(arr[right]) > abs(arr[left]):
+            ans.insert(0, pow(arr[right], 2))
+            right -= 1
+        else:
+            ans.insert(0, pow(arr[left], 2))
+            left += 1
+    return ans
