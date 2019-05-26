@@ -1,5 +1,6 @@
 __author__ = 'yusuke'
 
+import math
 from typing import List
 
 def pair_with_targetsum(arr, target_sum):
@@ -126,4 +127,69 @@ def search_triplets(arr: List):
     return triplets
 
 
+def triplet_sum_close_to_zero_(arr, target_sum) -> int:
+    """
+    Triplet Sum Close to Target (medium)
+    Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to
+    the target number as possible.
+    Input: [-2, 0, 1, 2], target=2
+    Output: 1
+    Explanation: The triplet [-2, 1, 2] has the closest sum to the target
+    """
+    arr.sort()
+    closest_sum = -99999
+    for i in range(len(arr)):
+        if i > 0 and arr[i-1] == arr[i]:
+            continue
+        closest_pair_sum = get_closest_pair(arr, target_sum - arr[i], i+1)
+        if abs(target_sum - closest_sum) > abs(target_sum - (closest_pair_sum + arr[i])):
+            closest_sum = closest_pair_sum + arr[i]
+    return closest_sum
 
+
+def get_closest_pair(arr, target_sum, left) -> int:
+    right = len(arr) - 1
+    closest_sum = -99999
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        if abs(target_sum - current_sum) < abs(target_sum - closest_sum):
+            closest_sum = current_sum
+
+        if (target_sum - current_sum) > 0:
+            left += 1
+        else:
+            right -= 1
+    return closest_sum
+
+
+def triplet_sum_close_to_zero(arr, target_sum) -> int:
+    """
+    Triplet Sum Close to Target (medium)
+    Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to
+    the target number as possible.
+    Input: [-2, 0, 1, 2], target=2
+    Output: 1
+    Explanation: The triplet [-2, 1, 2] has the closest sum to the target
+
+    Computation: O(n log n) + O(N)*O(N) --> O(N^2)
+    Memory: O(N) for sorting
+    """
+    arr.sort()
+    smallest_diff = math.inf
+    for i in range(len(arr)-2):
+        left = i + 1
+        right = len(arr) - 1
+        while left < right:
+            current_sum = arr[i] + arr[left] + arr[right]
+            # ピタリ賞を発見
+            if target_sum == current_sum:
+                return target_sum
+
+            diff = target_sum - current_sum
+            if abs(smallest_diff) > abs(diff):
+                smallest_diff = diff
+            if diff > 0:
+                left += 1
+            else:
+                right -= 1
+    return target_sum - smallest_diff

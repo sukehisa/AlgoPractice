@@ -75,3 +75,8 @@ class GrokkingExTest(unittest.TestCase):
     def test_search_triplets(self):
         self.assertEqual(search_triplets([-3, 0, 1, 2, -1, 1, -2]), [[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]])
         self.assertEqual(search_triplets([-5, 2, -1, -2, 3]), [[-5, 2, 3], [-2, -1, 3]])
+
+    def test_triplet_sum_close_to_zero(self):
+        self.assertEqual(triplet_sum_close_to_zero([-2, 0, 1, 2], 2), 1)
+        self.assertEqual(triplet_sum_close_to_zero([-3, -1, 1, 2], 1), 0)
+        self.assertEqual(triplet_sum_close_to_zero([1, 0, 1, 1], 100), 3)
