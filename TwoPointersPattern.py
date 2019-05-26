@@ -1,6 +1,6 @@
 __author__ = 'yusuke'
 
-
+from typing import List
 
 def pair_with_targetsum(arr, target_sum):
     """
@@ -82,3 +82,48 @@ def make_squares(arr):
             ans.insert(0, pow(arr[left], 2))
             left += 1
     return ans
+
+
+def search_triplets(arr: List):
+    """
+    Triplet Sum to Zero (medium)
+    Given an array of unsorted numbers, find all unique triplets in it that add up to zero.
+    Example 1:
+    Input: [-3, 0, 1, 2, -1, 1, -2]
+    Output: [-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]
+    Explanation: There are four unique triplets whose sum is equal to zero.
+
+    Computation: O(N^2),  sortでO(N log N), 外側のループでO(N), 内側（search_pair)でO(N）⇛ O(N log N) + O(N^2)
+    Space: O(N): sortでこのメモリ量
+    """
+
+    def search_pair(arr, target_sum, left, triplets):
+        right = len(arr) - 1
+        while left < right:
+            current_sum = arr[left] + arr[right]
+            if current_sum == target_sum:
+                triplets.append([-target_sum, arr[left], arr[right]])
+                left += 1
+                right -= 1
+                # 重複は排除するため、前の要素と同じ場合はskipする
+                while left < right and (arr[left-1] == arr[left]):
+                    left += 1
+                # 重複は排除するため、前の要素と同じ場合はskipする
+                while left < right and (arr[right+1] == arr[right]):
+                    right -= 1
+            elif target_sum > current_sum:
+                left += 1
+            else:
+                right -= 1
+
+    arr.sort()
+    triplets = []
+    for i in range(len(arr)):
+        # 重複は排除するため、前の軸要素と同じ場合はskipする
+        if i > 0 and arr[i-1] == arr[i]:
+            continue
+        search_pair(arr, -arr[i], i + 1, triplets)
+    return triplets
+
+
+

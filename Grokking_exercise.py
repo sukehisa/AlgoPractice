@@ -67,3 +67,11 @@ class GrokkingExTest(unittest.TestCase):
     def test_remove_element(self):
         self.assertEqual(remove_element([3, 2, 3, 6, 3, 10, 9, 3], 3), 4)
         self.assertEqual(remove_element([2, 11, 2, 2, 1], 2), 2)
+
+    def test_make_squares(self):
+        self.assertEqual(make_squares([-2, -1, 0, 2, 3]), [0, 1, 4, 4, 9])
+        self.assertEqual(make_squares([-3, -1, 0, 1, 2]), [0, 1, 1, 4, 9])
+
+    def test_search_triplets(self):
+        self.assertEqual(search_triplets([-3, 0, 1, 2, -1, 1, -2]), [[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]])
+        self.assertEqual(search_triplets([-5, 2, -1, -2, 3]), [[-5, 2, 3], [-2, -1, 3]])
