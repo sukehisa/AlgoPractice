@@ -80,3 +80,12 @@ class GrokkingExTest(unittest.TestCase):
         self.assertEqual(triplet_sum_close_to_zero([-2, 0, 1, 2], 2), 1)
         self.assertEqual(triplet_sum_close_to_zero([-3, -1, 1, 2], 1), 0)
         self.assertEqual(triplet_sum_close_to_zero([1, 0, 1, 1], 100), 3)
+
+    def test_triplet_with_smaller_sum(self):
+        self.assertEqual(triplet_with_smaller_sum([-1, 0, 2, 3], 3), 2)
+        self.assertEqual(triplet_with_smaller_sum([-1, 4, 2, 1, 3], 5), 4)
+
+    def test_triplet_with_smaller_sum_l(self):
+        self.assertEqual(triplet_with_smaller_sum_l([-1, 0, 2, 3], 3), [[-1, 0, 3], [-1, 0, 2]])
+        self.assertEqual(triplet_with_smaller_sum_l([-1, 4, 2, 1, 3], 5),
+                         [[-1, 1, 4], [-1, 1, 3], [-1, 1, 2], [-1, 2, 3]])

@@ -193,3 +193,57 @@ def triplet_sum_close_to_zero(arr, target_sum) -> int:
             else:
                 right -= 1
     return target_sum - smallest_diff
+
+
+def triplet_with_smaller_sum(arr: List, target: int) -> int:
+    """
+    Triplets with Smaller Sum (medium)
+    Given an array arr of unsorted numbers and a target sum, count all triplets in it such that
+    arr[i] + arr[j] + arr[k] < target where i, j, and k are three different indices.
+    Write a function to return the count of such triplets.
+
+    Example 1:
+    Input: [-1, 0, 2, 3], target=3
+    Output: 2
+    Explanation: There are two triplets whose sum is less than the target: [-1, 0, 3], [-1, 0, 2]
+
+    Computation: O(n log n) for sorting + O(N)*O(N) ==> O(N^2)
+    Memory: O(N) for sorting which is in-place algorithm
+    """
+    arr.sort()
+
+    count = 0
+    for i in range(len(arr)-2):
+        left = i + 1
+        right = len(arr) - 1
+        while left < right:
+            cursum = arr[i] + arr[left] + arr[right]
+            if cursum < target:
+                count += right - left  # arrはsortされているので、rightを、rightとleft間のどの要素にしてもHitする
+                left += 1
+            else:
+                right -= 1
+    return count
+
+
+def triplet_with_smaller_sum_l(arr: List, target: int) -> List:
+    """
+    triplet_with_smaller_sumのカウントではなく、tripletのリストを返すバージョン
+    Computation: O(n log n) + O(N) * O(N) * O(N) ==> O(N^3)
+    Memory: O(N) for sorting + O(N) for triplets
+    """
+    arr.sort()
+    triplets = []
+    for i in range(len(arr)-2):
+        left = i + 1
+        right = len(arr) - 1
+        while left < right:
+            current_sum = arr[i] + arr[left] + arr[right]
+            if current_sum < target:
+                # right-left間で、rightを動かして、組み合わせを作る
+                for right_idx in range(right, left, -1):
+                    triplets.append([arr[i], arr[left], arr[right_idx]])
+                left += 1
+            else:
+                right -= 1
+    return triplets
